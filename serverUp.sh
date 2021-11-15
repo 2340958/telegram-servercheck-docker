@@ -22,7 +22,7 @@ do
             "https://api.telegram.org/bot${botToken}/sendMessage" \
             > /dev/null
     else
-        echo "INFO: ${server}:${port} up! $(date +"%a, %d. %B %Y, %H:%M:%S")" # >> /var/log/serverUp.log 2>&1
+        echo "INFO: ${server}:${port} up! $(date +"%a, %d. %B %Y, %H:%M:%S")" >> /var/log/serverUp.log 2>&1
     fi
 done
 
