@@ -1,10 +1,10 @@
 FROM ubuntu:latest
 
 # Install cron
-RUN apt-get update
-RUN apt-get install cron
-RUN apt-get install netcat
-RUN apt-get install curl
+RUN apt update
+RUN apt install cron
+RUN apt install netcat -y
+RUN apt install curl -y
 
 # Add crontab file in the cron directory
 ADD crontab /etc/cron.d/simple-cron
