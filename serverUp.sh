@@ -1,8 +1,8 @@
 #!/bin/sh
-serverList="conx.ch tkb.ch"
+serverList=""
 port=443
-botToken="353751804:AAERI4fdB9DifkcPlgZYZ01HeUhLPE6dlUc"
-chatId="14215699"
+botToken=""
+chatId=""
  
 # Use comma as separator and apply as pattern
 for server in $(echo $serverList | sed "s/,/ /g")
