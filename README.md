@@ -47,8 +47,9 @@ To check if it is running properly, connect to the container using the id and vi
 ```
 $ sudo docker exec -i -t b149b5e7306dba492558c7024809f13cfbb616cccd0f4020db61bf715f4db836 /bin/bash
 root@b149b5e7306d:/# cat /var/log/serverUp.log
-Thu May 26 13:11:01 UTC 2016: executed script
-Thu May 26 13:12:01 UTC 2016: executed script
+INFO: google.com:443 up! Mon, 15. November 2021, 10:20:01
+INFO: yahoo.com:443 up! Mon, 15. November 2021, 10:20:01
+INFO: Mon, 15. November 2021, 10:20:01: executed script
 ```
 
 The cron job is running. Now let's modify the interval and the actual job executed!
