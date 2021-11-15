@@ -7,7 +7,9 @@ This simple script uses `netcat` to check if - for instance - a webserver is run
 - checkout this repo
 - read the readme and edit the serverUp.sh accordingly
 
+
 ## how to setup the telegram part
+
 ### 1. Register the bot
 Go to the [BotFather](https://t.me/botfather) bot-account and create a bot by writing `/newbot`. Then, copy the token.
 
@@ -54,7 +56,9 @@ INFO: Mon, 15. November 2021, 10:20:01: executed script
 
 The cron job is running. Now let's modify the interval and the actual job executed!
 
+
 ## how to modify
+
 To change the interval the cron job is runned, just simply edit the *crontab* file. In default, the job is runned every 5 minutes.
 
 `*/5 * * * * root /serverUp.sh`
