@@ -8,7 +8,7 @@ chatId=""
 for server in $(echo $serverList | sed "s/,/ /g")
 do
     if ! nc -w 2 -z $server $port > /dev/null 2>&1
-        echo "${server}:${port} down!%0A$(date +"%a, %d. %B %Y, %H:%M:%S")" >> /var/log/serverUp.log 2>&1
+        echo "${server}:${port} down! $(date +"%a, %d. %B %Y, %H:%M:%S")" >> /var/log/serverUp.log 2>&1
         then
             curl \
             -X POST \
