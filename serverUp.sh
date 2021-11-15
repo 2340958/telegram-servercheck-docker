@@ -1,15 +1,16 @@
 #!/bin/sh
-serverList=""
+#edit serverlist
+serverList="google.com yahoo.com"
 port=443
+#add your telegram secrets, see readme
 botToken=""
 chatId=""
- 
-# Use comma as separator and apply as pattern
+
 for server in $(echo $serverList | sed "s/,/ /g")
 do
     if ! nc -w 2 -z $server $port > /dev/null 2>&1
-        echo "${server}:${port} down! $(date +"%a, %d. %B %Y, %H:%M:%S")" >> /var/log/serverUp.log 2>&1
         then
+            echo "ERROR: ${server}:${port} down! $(date +"%a, %d. %B %Y, %H:%M:%S")" >> /var/log/serverUp.log 2>&1
             curl \
             -X POST \
             -s \
@@ -20,7 +21,9 @@ do
             --max-time 45 \
             "https://api.telegram.org/bot${botToken}/sendMessage" \
             > /dev/null
+    else
+        echo "INFO: ${server}:${port} up! $(date +"%a, %d. %B %Y, %H:%M:%S")" >> /var/log/serverUp.log 2>&1
     fi
 done
 
-echo "$(date +"%a, %d. %B %Y, %H:%M:%S"): executed script" >> /var/log/serverUp.log 2>&1
+echo "INFO: $(date +"%a, %d. %B %Y, %H:%M:%S"): executed script" >> /var/log/serverUp.log 2>&1
