@@ -2,6 +2,11 @@
 
 This simple script uses `netcat` to check if - for instance - a webserver is running on a server. If the service is not running, it utilizes the telegram bot API for sending a message to inform the operator of the server.  
 
+## setup
+- have docker installed (works on wsl2 / docker for desktop on windows as well)
+- checkout this repo
+- read the readme and edit the serverUp.sh accordingly
+
 ## how to setup the telegram part
 ### 1. Register the bot
 Go to the [BotFather](https://t.me/botfather) bot-account and create a bot by writing `/newbot`. Then, copy the token.
@@ -27,10 +32,8 @@ A simple docker container that runs a cron invoking a shell script.
 ## how to build docker container and run it
 Copy the repository and build from the Dockerimage:
 
+On Linux run:
 `$ sudo docker build --rm -t docker-cron . `
-
-In Windows terminal run:
-`docker build --rm -t docker-cron . `
 
 Run the docker container in the background (docker returns the id of the container):
 
@@ -39,7 +42,7 @@ $ sudo docker run -t -i -d docker-cron
 b149b5e7306dba492558c7024809f13cfbb616cccd0f4020db61bf715f4db836
 ```
 
-To check if it is running properly, connect to the container using the id and view the logfile. (You may have to wait 2 minutes)
+To check if it is running properly, connect to the container using the id and view the logfile. (You may have to wait a few minutes)
 
 ```
 $ sudo docker exec -i -t b149b5e7306dba492558c7024809f13cfbb616cccd0f4020db61bf715f4db836 /bin/bash
