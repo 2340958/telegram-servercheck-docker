@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-# Install cron
+# Install cron, netcat and curl
 RUN apt update
 RUN apt install cron
 RUN apt install netcat -y
