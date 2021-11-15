@@ -43,7 +43,7 @@ On Linux run:
 Run the docker container in the background (docker returns the id of the container):
 
 ```
-$ sudo docker run -t -i -d docker-cron
+$ sudo docker run --restart=always -t -i -d docker-cron
 b149b5e7306dba492558c7024809f13cfbb616cccd0f4020db61bf715f4db836
 ```
 
