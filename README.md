@@ -1,14 +1,17 @@
-# Server online-status check with reporting to telegram in a docker container working with cron
+# Server online-status check with reporting to telegram
+##  in a docker container - working automated via a cronjob
 
 This simple script uses `netcat` to check if - for instance - a webserver is running on a server. If the service is not running, it utilizes the telegram bot API for sending a message to inform the operator of the server.  
 
-## setup
+
+## before you start
+
 - have docker installed (works on wsl2 / docker for desktop on windows as well)
 - checkout this repo
 - read the readme and edit the serverUp.sh accordingly
 
 
-## how to setup the telegram part
+## how to setup and test the telegram part
 
 ### 1. Register the bot
 Go to the [BotFather](https://t.me/botfather) bot-account and create a bot by writing `/newbot`. Then, copy the token.
