@@ -2,7 +2,7 @@
 
 This simple script uses `netcat` to check if - for instance - a webserver is running on a server. If the service is not running, it utilizes the telegram bot API for sending a message to inform the operator of the server.  
 
-## How to setup the telegram part
+## how to setup the telegram part
 ### 1. Register the bot
 Go to the [BotFather](https://t.me/botfather) bot-account and create a bot by writing `/newbot`. Then, copy the token.
 
@@ -63,6 +63,6 @@ To change the actual job performed just change the content of the *serverUp.sh* 
 ## That's it!
 
 ## Special thanks to RundesBalli and Chris Heyer
-https://github.com/RundesBalli
+https://github.com/RundesBalli<br>
 https://github.com/cheyer
 
