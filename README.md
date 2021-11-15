@@ -73,7 +73,7 @@ To change the actual job performed just change the content of the *serverUp.sh* 
 ## That's it!
 
 ## Special thanks to RundesBalli and Chris Heyer
-[RundesBalli](https://github.com/RundesBalli) - [Server online-status check and reporting to telegram](gist.github.com/RundesBalli/4bdcf555c78c17a7b917de31cd7b4df0)
+[RundesBalli](https://github.com/RundesBalli) - [Server online-status check and reporting to telegram](https://gist.github.com/RundesBalli/4bdcf555c78c17a7b917de31cd7b4df0)
 <br>
 [Chris Heyer](https://github.com/cheyer) - [docker-cron](https://github.com/cheyer/docker-cron)
 
