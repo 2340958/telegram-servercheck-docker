@@ -9,7 +9,6 @@ chatId=""
 for server in $(echo $serverList | sed "s/,/ /g")
 do
     curl=$(curl -sL -w "%{http_code}\\n" "$server" -o /dev/null)
-    echo "${server}:${curl}"
     if [[ $curl == "200" ]]
         then 
             echo "INFO: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} > OK ${curl}" 
