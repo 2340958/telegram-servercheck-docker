@@ -8,13 +8,10 @@ chatId=""
 
 for server in $(echo $serverList | sed "s/,/ /g")
 do
-    curl=$(curl -s -w "%{http_code}\\n" "$server" -o /dev/null)
+    curl=$(curl -sL -w "%{http_code}\\n" "$server" -o /dev/null)#-sL flag follows redirects!
     if [[ $curl == 2* ]]
         then 
             echo "INFO: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} > success ${curl}" ;
-    elif [[ $curl == 3* ]]
-        then
-            echo "INFO: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} > redirection ${curl}";
     elif [[ $curl == "000" ]]
         then
             echo "WARNING: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} > dns error - check domain in server list" >> /var/log/serverUp.log 2>&1;
@@ -23,7 +20,7 @@ do
             echo "WARNING: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} > client errors ${curl}" >> /var/log/serverUp.log 2>&1;
     elif [[ $curl == 5* ]]
         then
-            echo "ERROR: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} down > statuscode ${curl}" >> /var/log/serverUp.log 2>&1;
+            echo "ERROR: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} down > server errors ${curl}" >> /var/log/serverUp.log 2>&1;
             curl \
             -X POST \
             -s \
