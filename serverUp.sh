@@ -1,6 +1,6 @@
 #!/bin/sh
 #edit serverlist
-serverList="google.com yahoo.com"
+serverList="httpstat.us/200 httpstat.us/301 httpstat.us/307 httpstat.us/404 httpstat.us/500"
 port=443
 #add your telegram secrets, see readme
 botToken=""
@@ -8,7 +8,7 @@ chatId=""
 
 for server in $(echo $serverList | sed "s/,/ /g")
 do
-    curl=$(curl -sL -w "%{http_code}\\n" "$server" -o /dev/null)
+    curl=$(curl -s -w "%{http_code}\\n" "$server" -o /dev/null)
     if [[ $curl == "200" ]]
         then 
             echo "INFO: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} > OK ${curl}" 
