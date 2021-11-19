@@ -29,7 +29,7 @@ do
             -s \
             --data "chat_id=${chatId}" \
             --data "disable_web_page_preview=true" \
-            --data "text=Server ${server} down!%0A$(date +"%a, %d. %B %Y, %H:%M:%S") > statuscode ${curl}" \
+            --data "text=Server ${server} down! $(date +"%a, %d. %B %Y, %H:%M:%S") > statuscode ${curl}" \
             --connect-timeout 30 \
             --max-time 45 \
             "https://api.telegram.org/bot${botToken}/sendMessage" \
