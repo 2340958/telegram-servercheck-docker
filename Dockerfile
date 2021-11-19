@@ -3,7 +3,6 @@ FROM ubuntu:latest
 # Install cron, netcat and curl
 RUN apt update
 RUN apt install cron
-RUN apt install netcat -y
 RUN apt install curl -y
 
 # Add crontab file in the cron directory
