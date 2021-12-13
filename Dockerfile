@@ -4,6 +4,8 @@ FROM ubuntu:latest
 RUN apt update
 RUN apt install cron
 RUN apt install curl -y
+RUN apt install tzdata
+RUN ln -snf /usr/share/zoneinfo/Europe/Zurich /etc/localtime && echo Europe/Zurich > /etc/timezone
 
 # Add crontab file in the cron directory
 ADD crontab /etc/cron.d/simple-cron
