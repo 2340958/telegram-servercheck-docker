@@ -1,7 +1,7 @@
 # Server online-status check with reporting to telegram
 ##  in a docker container - working automated via a cronjob
 
-This simple script uses `netcat` to check if - for instance - a webserver is running on a server. If the service is not running, it utilizes the telegram bot API for sending a message to inform the operator of the server.  
+This simple script uses `cURL` to check if a web application is running on a server. If the service is not running, it utilizes the telegram bot API for sending a message to inform the operator of the server.  
 
 
 ## before you start
