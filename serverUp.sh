@@ -12,29 +12,29 @@ do
     #-sL flag follows redirects!
     if [[ $curl == 2* ]]
         then 
-            echo "INFO: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} > success ${curl}" ;
+            echo "INFO: $(date +"%a, %d. %B %Y, %X"): ${server} > success ${curl}" ;
     elif [[ $curl == "000" ]]
         then
-            echo "WARNING: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} > dns error - check domain in server list" >> /var/log/serverUp.log 2>&1;
+            echo "WARNING: $(date +"%a, %d. %B %Y, %XS"): ${server} > dns error - check domain in server list" >> /var/log/serverUp.log 2>&1;
     elif [[ $curl == 4* ]]
         then
-            echo "WARNING: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} > client errors ${curl}" >> /var/log/serverUp.log 2>&1;
+            echo "WARNING: $(date +"%a, %d. %B %Y, %X"): ${server} > client errors ${curl}" >> /var/log/serverUp.log 2>&1;
     elif [[ $curl == 5* ]]
         then
-            echo "ERROR: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} down > server errors ${curl}" >> /var/log/serverUp.log 2>&1;
+            echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${server} down > server errors ${curl}" >> /var/log/serverUp.log 2>&1;
             curl \
             -X POST \
             -s \
             --data "chat_id=${chatId}" \
             --data "disable_web_page_preview=true" \
-            --data "text=Server ${server} down! $(date +"%a, %d. %B %Y, %H:%M:%S") > statuscode ${curl}" \
+            --data "text=Server ${server} down! $(date +"%a, %d. %B %Y, %X") > statuscode ${curl}" \
             --connect-timeout 30 \
             --max-time 45 \
             "https://api.telegram.org/bot${botToken}/sendMessage" \
             > /dev/null
     else
-        echo "ERROR: $(date +"%a, %d. %B %Y, %H:%M:%S"): ${server} down > other error ${curl} >> NO MESSAGE SENT" >> /var/log/serverUp.log 2>&1;
+        echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${server} down > other error ${curl} >> NO MESSAGE SENT" >> /var/log/serverUp.log 2>&1;
     fi
 done
 
-echo "INFO: $(date +"%a, %d. %B %Y, %H:%M:%S"): executed script" >> /var/log/serverUp.log 2>&1;
+echo "INFO: $(date +"%a, %d. %B %Y, %X"): executed script" >> /var/log/serverUp.log 2>&1;
