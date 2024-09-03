@@ -1,4 +1,5 @@
 #!/bin/bash
+#to run in termux on an android as no-server alternative (read readme for termux cronjob) and disable battery safe on android
 #edit serverlist
 serverList="httpstat.us/200 httpstat.us/301 httpstat.us/307 httpstat.us/404 httpstat.us/500"
 port=443
