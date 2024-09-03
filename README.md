@@ -59,6 +59,21 @@ INFO: Mon, 15. November 2021, 10:20:01: executed script
 
 The cron job is running. Now let's modify the interval and the actual job executed!
 
+PS: Crontab for termux on Android hint:
+```
+pkg install cronie termux-services
+```
+restart termux
+```
+sv-enable crond
+crontab -e
+```
+it will open default text editor , write your job in it and save it,
+
+For example :
+```
+* * * * * mkdir ~/crontab-testing
+```
 
 ## how to modify
 
