@@ -72,9 +72,12 @@ it will open default text editor , write your job in it and save it,
 
 For example :
 ```
-* * * * * mkdir ~/crontab-testing
+* * * * * mkdir $pwd/something
 ```
-
+Every time you start Termux, you need to start the cron service by running the command:
+```
+ sv up crond
+```
 ## how to modify
 
 To change the interval the cron job is runned, just simply edit the *crontab* file. In default, the job is runned every 5 minutes.
