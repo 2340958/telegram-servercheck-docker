@@ -39,4 +39,4 @@ do
     esac
 done
 
-echo "INFO: $(date +"%a, %d. %B %Y, %X"): executed script";
+echo "INFO: $(date +"%a, %d. %B %Y, %X"): executed script" >> ${pwd}/out.log;
