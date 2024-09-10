@@ -23,7 +23,7 @@ Visit `https://api.telegram.org/bot{token}/getUpdates` to get your chat id: `res
 Please note that the token must be directly behind `bot` in the URL. If your token starts with `AAAA` the URL looks like `/botAAAA` and so on.  
 
 ### 3. Configure the script
-Fill in the four variables `server`, `port` (SSL is on 443 by default), `botToken` and `chatId`.
+Fill in the four variables `server`, `port` (SSL is on 443 by default), `botToken` and `chatId`. . Wheras the serverList is comma seperated list.
 
 ### 4. Make the script executable
 Execute `chmod +x serverUp.sh` to make the script executable.
@@ -59,7 +59,7 @@ INFO: Mon, 15. November 2021, 10:20:01: executed script
 
 The cron job is running. Now let's modify the interval and the actual job executed!
 
-PS: Crontab for termux on Android hint:
+##Crontab for termux on Android:
 ```
 pkg install cronie termux-services
 ```
@@ -72,21 +72,26 @@ it will open default text editor , write your job in it and save it,
 
 For example :
 ```
-* * * * * mkdir $pwd/something
+`*/5 * * * * /path/to/your/script/script.sh`
 ```
-Every time you start Termux, you need to start the cron service by running the command:
+Every time you start/restart Termux, you need to start the cron service by running the command:
 ```
  sv up crond
 ```
+Check for running crond
+`pidof crond`
+
 ## how to modify
-
 To change the interval the cron job is runned, just simply edit the *crontab* file. In default, the job is runned every 5 minutes.
+You don't need a user because it runs with your local Termux user. (To find your user type `whoami`)
+To find your working directoy where the script should be stored somwhere type `pwd`
 
-`*/5 * * * * root /serverUp.sh`
+`*/5 * * * * /path/to/the/script/serverUp.sh`
 
-To change the actual job performed just change the content of the *serverUp.sh* file. In default, the script writes the date into a file located in */var/log/serverUp.log*.
+To change the actual job performed just change the content of the *serverUp.sh* file. In default, the script writes the date into a file located in `${pwd}/serverUp.log`
+To check the working directory type `pwd`
 
-`echo "$(date): executed script" >> /var/log/serverUp.log 2>&1`
+`echo "$(date): executed script" >> ${pwd}/serverUp.log 2>&1`
 
 ## That's it!
 
