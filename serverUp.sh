@@ -15,13 +15,13 @@ do
             echo "INFO: $(date +"%a, %d. %B %Y, %X"): ${server} > success ${curl}" ;
     elif [[ $curl == "000" ]]
         then
-            echo "WARNING: $(date +"%a, %d. %B %Y, %XS"): ${server} > dns error - check domain in server list" >> /var/log/serverUp.log 2>&1;
+            echo "WARNING: $(date +"%a, %d. %B %Y, %XS"): ${server} > dns error - check domain in server list" >> $(pwd)/serverUp.log 2>&1;
     elif [[ $curl == 4* ]]
         then
-            echo "WARNING: $(date +"%a, %d. %B %Y, %X"): ${server} > client errors ${curl}" >> /var/log/serverUp.log 2>&1;
+            echo "WARNING: $(date +"%a, %d. %B %Y, %X"): ${server} > client errors ${curl}" >> $(pwd)/serverUp.log 2>&1;
     elif [[ $curl == 5* ]]
         then
-            echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${server} down > server errors ${curl}" >> /var/log/serverUp.log 2>&1;
+            echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${server} down > server errors ${curl}" >> $(pwd)/serverUp.log 2>&1;
             curl \
             -X POST \
             -s \
@@ -33,8 +33,8 @@ do
             "https://api.telegram.org/bot${botToken}/sendMessage" \
             > /dev/null
     else
-        echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${server} down > other error ${curl} >> NO MESSAGE SENT" >> /var/log/serverUp.log 2>&1;
+        echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${server} down > other error ${curl} >> NO MESSAGE SENT" >> $(pwd)/serverUp.log 2>&1;
     fi
 done
 
-echo "INFO: $(date +"%a, %d. %B %Y, %X"): executed script" >> /var/log/serverUp.log 2>&1;
+echo "INFO: $(date +"%a, %d. %B %Y, %X"): executed script" >> $(pwd)/serverUp.log 2>&1;
