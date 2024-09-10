@@ -1,10 +1,7 @@
 FROM ubuntu:latest
 
-# Install cron, netcat and curl
-RUN apt update
-RUN apt install cron
-RUN apt install curl -y
-RUN apt install tzdata
+# Install cron and curl
+RUN apt update && apt -y install cron && apt -y install curl -y && apt -y install tzdata
 RUN ln -snf /usr/share/zoneinfo/Europe/Zurich /etc/localtime && echo Europe/Zurich > /etc/timezone
 
 # Add crontab file in the cron directory
@@ -18,7 +15,7 @@ RUN chmod +x /serverUp.sh
 RUN chmod 0644 /etc/cron.d/simple-cron
 
 # Create the log file to be able to run tail
-RUN touch /var/log/serverUp.log
+RUN touch /root/serverUp.log
 
 # Run the command on container startup
-CMD ["/bin/bash","cron && tail -f /var/log/serverUp.log"]
+CMD ["sh", "-c", "cron && tail -f /root/serverUp.log"]
