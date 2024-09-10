@@ -21,4 +21,4 @@ RUN chmod 0644 /etc/cron.d/simple-cron
 RUN touch /var/log/serverUp.log
 
 # Run the command on container startup
-CMD cron && tail -f /var/log/serverUp.log
+CMD ["cron && tail -f /var/log/serverUp.log"]
