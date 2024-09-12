@@ -1,24 +1,26 @@
 #!/bin/bash
 #edit serverlist
-serverList="httpstat.us/200 httpstat.us/301 httpstat.us/307 httpstat.us/404 httpstat.us/500"
+serverList="example.com"
 port=443
 #add your telegram secrets, see readme
 botToken=""
 chatId=""
 url="https://www.example.com"
-keyword="keyword"
+keyword1="<!--node1-->"
+keyword2="<!--node2-->"
 
 for server in $(echo $serverList | sed "s/,/ /g")
 do
     curl=$(curl -sL -w "%{http_code}\\n" "$server" -o /dev/null)
     #-sL flag follows redirects!
     if [[ $curl == 2* ]]
-        then 
-            echo "INFO: $(date +"%a, %d. %B %Y, %X"): ${server} > success ${curl}" >> $(pwd)/serverUp.log 2>&1;
-            #edge-case if the server is responding but the response is empty!?
-            content=$(curl -L -s "${url}" | grep -ioF "${keyword}" | sort | uniq) 
-            #is content empty (keyword not found)
+        then
+            content=$(curl -L -s "${url}")  # Define content here to reuse for both node1 and node2
+            node1=$(echo "$content" | grep -ioF "${keyword1}" | sort | uniq)
+            node2=$(echo "$content" | grep -ioF "${keyword2}" | sort | uniq)
+
             if [[ -z "$content" ]]; then
+                echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${url} down"
                 echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${server} down > NO CONTENT" >> $(pwd)/serverUp.log 2>&1;
                 curl \
                 -X POST \
@@ -30,9 +32,10 @@ do
                 --max-time 45 \
                 "https://api.telegram.org/bot${botToken}/sendMessage" \
                 > /dev/null
-            #keyword found... all normal :D
-            else
-                echo "INFO: $(date +"%a, %d. %B %Y, %X"): ${server} > success ${curl} content found, all okay." >> $(pwd)/serverUp.log 2>&1;
+            elif [[ "$node1" == "$keyword1" ]]; then  # Fix the spacing around [[ and ]]
+                echo "INFO: $(date +"%a, %d. %B %Y, %X"): web20 ok" >> $(pwd)/serverUp.log 2>&1;
+            elif [[ "$node2" == "$keyword2" ]]; then  # Fix the spacing around [[ and ]]
+                echo "INFO: $(date +"%a, %d. %B %Y, %X"): web21 ok" >> $(pwd)/serverUp.log 2>&1;
             fi
     elif [[ $curl == "000" ]]
         then
@@ -58,4 +61,4 @@ do
     fi
 done
 
-echo "INFO: $(date +"%a, %d. %B %Y, %X"): executed script" >> $(pwd)/serverUp.log 2>&1;
+#echo "INFO: $(date +"%a, %d. %B %Y, %X"): executed script" >> $(pwd)/serverUp.log 2>&1;
