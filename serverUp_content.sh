@@ -1,11 +1,11 @@
 #!/bin/bash
 #edit serverlist
-serverList="example.com"
+serverList="test.ch"
 port=443
 #add your telegram secrets, see readme
 botToken=""
 chatId=""
-url="https://www.example.com"
+url="https://www.test.ch"
 keyword1="<!--node1-->"
 keyword2="<!--node2-->"
 
@@ -15,23 +15,33 @@ do
     #-sL flag follows redirects!
     if [[ $curl == 2* ]]
         then
-            content=$(curl -L -s "${url}")  # Define content here to reuse for both node1 and node2
+            content=$(curl -sL "${url}")  # Define content here to reuse for both node1 and node2
             node1=$(echo "$content" | grep -ioF "${keyword1}" | sort | uniq)
             node2=$(echo "$content" | grep -ioF "${keyword2}" | sort | uniq)
 
             if [[ -z "$content" ]]; then
-                echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${url} down"
-                echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${server} down > NO CONTENT" >> $(pwd)/serverUp.log 2>&1;
-                curl \
-                -X POST \
-                -s \
-                --data "chat_id=${chatId}" \
-                --data "disable_web_page_preview=true" \
-                --data "text=Server ${server} down! $(date +"%a, %d. %B %Y, %X") > NO CONTENT" \
-                --connect-timeout 30 \
-                --max-time 45 \
-                "https://api.telegram.org/bot${botToken}/sendMessage" \
-                > /dev/null
+                
+                #echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${server} down > no content, retry";
+                echo "ERROR: $(date +"%a, %d. %B %Y, %X"): ${url} down - retry" >> $(pwd)/serverUp.log 2>&1;
+                content=$(curl -sL "${url}")  # Define content here to reuse for both node1 and node2
+                node1=$(echo "$content" | grep -ioF "${keyword1}" | sort | uniq)
+                node2=$(echo "$content" | grep -ioF "${keyword2}" | sort | uniq)
+
+                if [[ -z "$content" ]]; then
+                    echo "ERROR: $(date +"%a, %d. %B %Y, %X"): retry failed ${url} down - notificate" >> $(pwd)/serverUp.log 2>&1;
+                    curl \
+                    -X POST \
+                    -s \
+                    --data "chat_id=${chatId}" \
+                    --data "disable_web_page_preview=true" \
+                    --data "text=Server ${server} down! $(date +"%a, %d. %B %Y, %X") > NO CONTENT" \
+                    --connect-timeout 30 \
+                    --max-time 45 \
+                    "https://api.telegram.org/bot${botToken}/sendMessage" \
+                    > /dev/null
+                else
+                  echo "INFO: $(date +"%a, %d. %B %Y, %X"): retry ok!" >> $(pwd)/serverUp.log 2>&1;
+                fi
             elif [[ "$node1" == "$keyword1" ]]; then  # Fix the spacing around [[ and ]]
                 echo "INFO: $(date +"%a, %d. %B %Y, %X"): web20 ok" >> $(pwd)/serverUp.log 2>&1;
             elif [[ "$node2" == "$keyword2" ]]; then  # Fix the spacing around [[ and ]]
